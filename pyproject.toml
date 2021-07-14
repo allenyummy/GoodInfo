@@ -3,6 +3,7 @@ name = "GoodInfo"
 version = "0.1.0"
 description = "Web crawler for Taiwan GoodInfo (stock information)"
 authors = ["Yu-Lun Chiang <chiangyulun0914@gmail.com>"]
+readme = "README.md"
 license = "MIT"
 
 [tool.poetry.dependencies]
