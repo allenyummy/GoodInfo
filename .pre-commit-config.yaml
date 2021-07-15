@@ -1,9 +1,10 @@
 repos:
     - repo: https://github.com/pre-commit/pre-commit-hooks
-      rev: v3.4.0
+      rev: v4.0.1
       hooks:
           - id: detect-private-key
           - id: check-added-large-files
+            args: ["--maxkb=1000"]
           - id: check-merge-conflict
           - id: check-json
           - id: check-yaml
