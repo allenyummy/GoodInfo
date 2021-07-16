@@ -96,8 +96,8 @@ def get_all_basic(
                 continue
             basic = get_basic(code)
 
-        except Exception:
-            print("ip address got locked because of request limit.")
+        except Exception as e:
+            print(e)
             # Write file and exit
             writeJson(data, outfile)
             break
@@ -109,7 +109,7 @@ def get_all_basic(
                 writeJson(data, outfile)
                 print(f"Write2Json: {i-10} ~ {i}.")
 
-        time.sleep(random.randint(20, 30))
+        time.sleep(random.randint(15, 20))
 
     writeJson(data, outfile)
     return data
@@ -130,11 +130,13 @@ def readJson(infile: str) -> Dict[str, GoodInfoStruct]:
 
 def writeJson(data: Dict[str, GoodInfoStruct], outfile: str):
 
+    tmp = data.copy()
+
     # transform to dict
-    for code in data:
-        if isinstance(data[code], GoodInfoStruct):
-            data[code] = data[code].__2dict__()
+    for code in tmp:
+        if isinstance(tmp[code], GoodInfoStruct):
+            tmp[code] = tmp[code].__2dict__()
 
     with open(outfile, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=4)
+        json.dump(tmp, f, ensure_ascii=False, indent=4)
         f.close()
