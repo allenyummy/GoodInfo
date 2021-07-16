@@ -21,9 +21,21 @@ $ poetry install
 
 ---
 
-## Run example code
+## Run code
+
++ Only get code and name to `out/company.json`
 ```
-$ python example.py
+$ python main.py -g1 -o out/company.json
+```
+
++ Get entire basic information to `out/company.json`
+```
+$ python main.py -g1 -g2 -o out/company.json
+```
+
++ Your ip address may be locked, so you can use it to restart your progam to get the rest basic information
+```
+$ python main.py -g2 -c out/company.json -o out/company.json
 ```
 
 ---
