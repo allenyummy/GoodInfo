@@ -1,0 +1,17 @@
+## flake8 rules: https://lintlyci.github.io/Flake8Rules/
+# E203: Whitespace before ':'
+# E266: Too many leading '#' for block comment
+# E501: Line too long (default: 82 > 79 characters)
+# W503: Line break occurred before a binary operator
+# F403: 'from module import *' used; unable to detect undefined names
+# F401: Module imported but unused 
+
+[flake8]
+ignore = E203, W503
+max-line-length = 100
+max-complexity = 18
+select = B,C,E,F,W,T4,B9
+exclude =
+    .git,
+    __pycache__,
+    build
