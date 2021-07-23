@@ -23,6 +23,8 @@ $ poetry install
 
 ## Run code
 
+### Get company info
+
 + Only get code and name to `out/company.json`
 ```
 $ python main.py -g1 -o out/company.json
@@ -37,6 +39,15 @@ $ python main.py -g1 -g2 -o out/company.json
 ```
 $ python main.py -g2 -c out/company.json -o out/company.json
 ```
+
+### Get google news info
+
++ Get google news. (I've not written argsparse yet. Sorry for inconvenience.)
+```
+PYTHONPATH=./ python src/gnews.json
+```
+Noted that you should run above code to get `out/company.json`
+Also, I use `time.sleep(30)` but it still got locked when get news every 40 companies, so I terminate the code every 40 companies to avoid your IP address locked.
 
 ---
 
