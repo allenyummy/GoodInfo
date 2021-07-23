@@ -3,8 +3,8 @@
 # Description: Data structure
 
 import logging
-from dataclasses import dataclass, field
-from typing import Dict, List
+from dataclasses import dataclass
+from typing import Dict
 
 logger = logging.getLogger(__name__)
 
@@ -72,32 +72,3 @@ def dict2GoodInfoStruct(ipt: Dict[str, str]):
         簽證會計師=ipt["簽證會計師"],
         投資關係聯絡人=ipt["投資關係聯絡人"],
     )
-
-
-@dataclass
-class NewsDetailsStruct:
-    def __repr__(self):
-        pass
-
-    def __2dict__(self):
-        pass
-
-
-@dataclass
-class NewsStruct:
-    股票名稱: str
-    新聞: List[NewsDetailsStruct] = field(default_factory=list)
-
-    def __repr__(self):
-        pass
-
-    def __2dict__(self):
-        pass
-
-
-@dataclass
-class DataStruct:
-    updatetime: str
-    version: str
-    data: List[NewsStruct]
-    pass
