@@ -30,10 +30,8 @@ class EBCNewsCrawler(BaseMediaCrawler):
 
     @staticmethod
     def _get_script_info(soup: BeautifulSoup) -> Dict[str, str]:
-        # list of dictionary
+        # use 1-st element (0-indexed)
         script_info_str = soup.find_all("script", type="application/ld+json")[1].string
-
-        # use first element (0-indexed)
         script_info_dict = json.loads(script_info_str)
         logger.debug(f"SCRIPT_INFO_STR:\n {script_info_str}")
         logger.debug(f"SCRIPT_INFO_DICT:\n {script_info_dict}")
