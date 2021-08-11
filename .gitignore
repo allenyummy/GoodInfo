@@ -1,4 +1,7 @@
 .vscode
 .DS_Store
+.pytest_cache
+.coverage
 __pycache__
 out/googlenews.json
+out/sample*
