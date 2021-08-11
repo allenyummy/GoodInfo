@@ -23,18 +23,20 @@ MEDIA_URL = {
     "自由財經": "https://ec.ltn.com.tw",
     "中時新聞網": "https://www.chinatimes.com",
     "聯合新聞網": "https://udn.com",
-    "台視新聞": "https://news.ttv.com.tw",
+    "台視新聞": "https://news.ttv.com.tw",  # No news
     "民視新聞": "https://www.ftvnews.com.tw",
-    "華視新聞網": "https://news.cts.com.tw",
+    "華視新聞網": "https://news.cts.com.tw",  # No news
     "新浪新聞": "https://news.sina.com.tw",
     "蘋果日報": "https://tw.appledaily.com",
     "經濟日報": "https://money.udn.com",
     "工商時報": "https://ctee.com.tw",
-    "科技新報": "https://technews.tw",
+    "科技新報": "https://technews.tw",  # no script_info
+    "財經新報": "https://finance.technews.tw",  # no script_info
     "數位時代": "https://www.bnext.com.tw",
+    "Meet創業小聚": "https://meet.bnext.com.tw",
     "鉅亨網": "https://m.cnyes.com",
     "鉅亨新聞網": "https://news.cnyes.com",
-    "東森財經新聞": "https://fnc.ebc.net.tw",
+    "東森財經新聞": "https://fnc.ebc.net.tw",  # cannot catch content
     "信傳媒": "https://www.cmmedia.com.tw",
     "風傳媒": "https://www.storm.mg",
     "鏡週刊": "https://www.mirrormedia.mg",
