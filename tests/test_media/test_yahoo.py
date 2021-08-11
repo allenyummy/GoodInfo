@@ -5,7 +5,7 @@
 import logging
 import pytest
 from collections import namedtuple
-from src.media.yahoo import YahooNewsCrawler
+from src.media.crawler.yahoo import YahooNewsCrawler
 from src.utils.struct import NewsStruct
 
 logger = logging.getLogger(__name__)
