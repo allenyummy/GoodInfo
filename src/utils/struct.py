@@ -2,9 +2,10 @@
 # Author: Yu-Lun Chiang
 # Description: Data structure
 
+import json
 import logging
-from dataclasses import dataclass
-from typing import Dict
+from dataclasses import asdict, dataclass, field
+from typing import Dict, List
 
 logger = logging.getLogger(__name__)
 
@@ -72,3 +73,62 @@ def dict2GoodInfoStruct(ipt: Dict[str, str]):
         簽證會計師=ipt["簽證會計師"],
         投資關係聯絡人=ipt["投資關係聯絡人"],
     )
+
+
+@dataclass
+class NewsStruct:
+    """News Data Structure"""
+
+    title: str = field(
+        default=None,
+        metadata={"help": "News title."},
+    )
+    content: str = field(
+        default=None,
+        metadata={"help": "News content."},
+    )
+    keywords: List[str] = field(
+        default_factory=list,
+        metadata={"help": "News keywords."},
+    )
+    category: str = field(
+        default=None,
+        metadata={"help": "News category."},
+    )
+    media: str = field(
+        default=None,
+        metadata={"help": "Media which releases news."},
+    )
+    datetime: str = field(
+        default=None,
+        metadata={"help": "Datetime in which news is released."},
+    )
+    link: str = field(
+        default=None,
+        metadata={"help": "News link."},
+    )
+
+    def __eq__(self, other) -> bool:
+        return self.link == other.link
+
+    def __repr__(self):
+        return (
+            "\n"
+            f"[TITLE   ]: {self.title}\n"
+            f"[CONTENT ]: {self.content}\n"
+            f"[KEYWORDS]: {self.keywords}\n"
+            f"[CATEGORY]: {self.category}\n"
+            f"[MEDIA   ]: {self.media}\n"
+            f"[DATETIME]: {self.datetime}\n"
+            f"[LINK    ]: {self.link}\n"
+        )
+
+    def __2json__(self):
+        return json.dumps(
+            asdict(self),
+            ensure_ascii=False,
+            indent=4,
+        )
+
+    def __2dict__(self):
+        return json.loads(self.__2json__())
