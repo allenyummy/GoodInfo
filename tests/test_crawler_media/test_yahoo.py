@@ -5,7 +5,7 @@
 import logging
 import pytest
 from collections import namedtuple
-from src.media.crawler.yahoo import YahooNewsCrawler
+from src.crawler.media import yahoo
 from src.utils.struct import NewsStruct
 
 logger = logging.getLogger(__name__)
@@ -21,7 +21,7 @@ TEST_DATA = namedtuple(
 )
 
 TEST_DATA_1 = TEST_DATA(
-    name="YahooStock-1",
+    name="Yahoo奇摩股市_1",
     link="https://tw.stock.yahoo.com/news/%E7%86%B1%E9%96%80%E6%97%8F%E7%BE%A4-%E5%A7%94%E5%A4%96%E8%A8%82%E5%96%AE%E6%97%BA-%E5%89%B5%E6%84%8F%E5%8A%9B%E6%97%BA%E6%A5%AD%E7%B8%BE%E8%A3%9C-234511435.html",
     expected_output=NewsStruct(
         title="《熱門族群》委外訂單旺 創意力旺業績補",
@@ -35,7 +35,7 @@ TEST_DATA_1 = TEST_DATA(
 )
 
 TEST_DATA_2 = TEST_DATA(
-    name="YahooNews-1",
+    name="Yahoo奇摩新聞_1",
     link="https://tw.news.yahoo.com/%E5%85%AC%E5%8F%B8%E6%B2%BB%E7%90%86100%E6%8C%87%E6%95%B8-%E6%88%90%E5%88%86%E8%82%A1%E6%96%B0%E5%A2%9E32%E6%AA%94-115754553.html",
     expected_output=NewsStruct(
         title="公司治理100指數 成分股新增32檔",
@@ -52,14 +52,14 @@ TEST_DATA_2 = TEST_DATA(
 @pytest.fixture(scope="module")
 def newsCrawler():
     logger.warning("Init News Crawler ...")
-    return YahooNewsCrawler()
+    return yahoo.YahooNewsCrawler()
 
 
 @pytest.mark.parametrize(
     argnames="name, link, expected_output",
     argvalues=[tuple(t) for t in [TEST_DATA_1, TEST_DATA_2]],
     ids=[
-        f"{t.name}, {t.link[:min(50, len(t.link))]}..."
+        f"{t.name}, {t.link[:50]+'...' if len(t.link) > 50 else t.link}"
         for t in [TEST_DATA_1, TEST_DATA_2]
     ],
 )
