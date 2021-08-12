@@ -35,10 +35,7 @@ TASKS = run_sample run_sample_all run_test run_test_all
 ## MEDIA
 TARGET_MEDIA 		 = yahoo ettoday ltn chinatimes udn \
 			   		   ftv sina appledaily moneyudn ctee \
-			           bnext cynes
-NO_NEWS_MEDIA 		 = ttv cts
-NO_SCRIPT_INFO_MEDIA = technews
-LOCK_MEDIA 			 = ebc
+			           bnext cynes ttv cts technews ebc
 
 
 ## SAMPLE LINK
@@ -66,7 +63,8 @@ sample_ctee_link 	   = https://ctee.com.tw/news/stocks/491412.html \
 						 https://ctee.com.tw/news/stocks/487126.html
 sample_technews_link   = https://finance.technews.tw/2021/06/09/caswell-6416-202105-financial-report/ \
 					     https://finance.technews.tw/2021/07/09/mvi-2342-202106-financial-report/
-sample_bnext_link 	   = https://meet.bnext.com.tw/articles/view/44652
+sample_bnext_link 	   = https://meet.bnext.com.tw/articles/view/44652 \
+						 https://meet.bnext.com.tw/articles/view/47657
 sample_cynes_link 	   = https://news.cnyes.com/news/id/4520040 \
 						 https://m.cnyes.com/news/id/4537458
 sample_ebc_link 	   = https://fnc.ebc.net.tw/FncNews/stock/127025 \
@@ -80,16 +78,6 @@ ifeq ($(media), $(filter $(media), $(TARGET_MEDIA)))
 		-m $(media) \
 		-l $(sample_$(media)_link) \
 		-o out/sample_$(media).json
-
-else ifeq ($(media), $(filter $(media), $(NO_NEWS_MEDIA)))
-	@echo "$(media) has no news."
-
-else ifeq ($(media),$(filter $(media), $(NO_SCRIPT_INFO_MEDIA)))
-	@echo "$(media) has no script info."
-
-else ifeq ($(media),$(filter $(media), $(LOCK_MEDIA)))
-	@echo "$(media) locks their content."
-
 else
 	@echo "make run_sample media=$(media)"
 	@echo "   media only supports the following arguments:"
@@ -115,16 +103,6 @@ ifeq ($(media), $(filter $(media), $(TARGET_MEDIA)))
 		--log-cli-level=warning \
 		--cov=./ \
 		--cov-report term-missing
-
-else ifeq ($(media), $(filter $(media), $(NO_NEWS_MEDIA)))
-	@echo "$(media) has no news."
-
-else ifeq ($(media),$(filter $(media), $(NO_SCRIPT_INFO_MEDIA)))
-	@echo "$(media) has no script info."
-
-else ifeq ($(media),$(filter $(media), $(LOCK_MEDIA)))
-	@echo "$(media) locks their content."
-
 else
 	@echo "make run_test media=$(media)"
 	@echo "   media only supports the following arguments:"
@@ -137,7 +115,12 @@ endif
 
 ## TASKS = run_test_all
 run_test_all:
-	for media in $(TARGET_MEDIA); do \
-		echo ====== $$media ======; \
-		make run_test media=$$media; \
-	done
+	pytest tests/ \
+		--log-cli-level=warning \
+		--cov=./ \
+		--cov-report term-missing
+
+	# for media in $(TARGET_MEDIA); do \
+	# 	echo ====== $$media ======; \
+	# 	make run_test media=$$media; \
+	# done
