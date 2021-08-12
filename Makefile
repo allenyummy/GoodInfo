@@ -22,7 +22,7 @@ help:
 	@echo "                    The supported media options are as follows:"
 	@echo "                          yahoo ettoday ltn chinatimes udn"
 	@echo "                          ftv sina appledaily moneyudn ctee"
-	@echo "                          bnext cynes"
+	@echo "                          bnext cynes ttv cts technews ebc"
 
 ####################################################
 ####### VARIABLEs of run_sample and run_test #######
@@ -81,9 +81,7 @@ ifeq ($(media), $(filter $(media), $(TARGET_MEDIA)))
 else
 	@echo "make run_sample media=$(media)"
 	@echo "   media only supports the following arguments:"
-	@echo "		yahoo, ettoday, ltn, chinatimes, udn,"
-	@echo "		ftv, sina, appledaily, moneyudn, ctee,"
-	@echo "		bnext, cynes"
+	@echo "      $(TARGET_MEDIA)"
 	@echo "   but got media=$(media)."
 endif
 
