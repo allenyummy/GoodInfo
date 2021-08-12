@@ -6,7 +6,7 @@ import argparse
 import logging
 import os
 
-from src.media.crawler import (
+from src.crawler.media import (
     appledaily,
     bnext,
     chinatimes,
