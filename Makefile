@@ -35,7 +35,8 @@ TASKS = run_sample run_sample_all run_test run_test_all
 ## MEDIA
 TARGET_MEDIA 		 = yahoo ettoday ltn chinatimes udn \
 			   		   ftv sina appledaily moneyudn ctee \
-			           bnext cynes ttv cts technews ebc
+			           bnext cynes ttv cts technews ebc \
+					   cmmedia storm mirror
 
 
 ## SAMPLE LINK
@@ -69,7 +70,12 @@ sample_cynes_link 	   = https://news.cnyes.com/news/id/4520040 \
 						 https://m.cnyes.com/news/id/4537458
 sample_ebc_link 	   = https://fnc.ebc.net.tw/FncNews/stock/127025 \
 						 https://fnc.ebc.net.tw/fncnews/else/135466
-
+sample_cmmedia_link    = https://www.cmmedia.com.tw/home/articles/28422 \
+						 https://www.cmmedia.com.tw/home/articles/29234
+sample_storm_link      = https://www.storm.mg/article/3018203 \
+						 https://www.storm.mg/lifestyle/3578464
+sample_mirror_link     = https://www.mirrormedia.mg/story/20210409money006/ \
+						 https://www.mirrormedia.mg/story/20210409money005/
 
 ## TASKS = run_sample
 run_sample:

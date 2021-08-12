@@ -23,6 +23,9 @@ from src.crawler.media import (
     ttv,
     udn,
     yahoo,
+    cmmedia,
+    storm,
+    mirror,
 )
 from src.utils.struct import NewsStruct
 from src.utils.utility import readJson, writeJson
@@ -88,6 +91,9 @@ def MediaCrawlerFactory(media_name: str):
         "bnext": bnext.BnextNewsCrawler,
         "cynes": cynes.CYNESNewsCrawler,
         "ebc": ebc.EBCNewsCrawler,
+        "cmmedia": cmmedia.CMMediaNewsCrawler,
+        "storm": storm.StormNewsCrawler,
+        "mirror": mirror.MirrorNewsCrawler,
     }
     return LOCALIZERS[media_name]()
 
