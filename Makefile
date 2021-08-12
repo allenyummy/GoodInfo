@@ -33,10 +33,10 @@ TASKS = run_sample run_sample_all run_test run_test_all
 
 
 ## MEDIA
-TARGET_MEDIA 		 = yahoo ettoday ltn chinatimes udn \
-                       ftv sina appledaily moneyudn ctee \
-                       bnext cynes ttv cts technews ebc \
-                       cmmedia storm mirror
+TARGET_MEDIA = yahoo ettoday ltn chinatimes udn \
+               ftv sina appledaily moneyudn ctee \
+               bnext cynes ttv cts technews ebc \
+               cmmedia storm mirror
 
 
 ## SAMPLE LINK
@@ -48,27 +48,27 @@ sample_ltn_link        = https://news.ltn.com.tw/news/business/breakingnews/3604
                          https://ec.ltn.com.tw/article/breakingnews/3468538
 sample_chinatimes_link = https://www.chinatimes.com/realtimenews/20210712002325-260410 \
                          https://www.chinatimes.com/realtimenews/20210428001632-260410
-sample_udn_link 	   = https://udn.com/news/story/7253/5550651 \
+sample_udn_link        = https://udn.com/news/story/7253/5550651 \
                          https://udn.com/news/story/7254/5542521
-sample_ttv_link 	   = 
-sample_ftv_link 	   = https://www.ftvnews.com.tw/news/detail/2021713W0276 \
+sample_ttv_link        = 
+sample_ftv_link        = https://www.ftvnews.com.tw/news/detail/2021713W0276 \
                          https://www.ftvnews.com.tw/news/detail/2021721W0079
-sample_cts_link 	   = 
-sample_sina_link 	   = https://news.sina.com.tw/article/20210318/37931108.html \
+sample_cts_link        = 
+sample_sina_link       = https://news.sina.com.tw/article/20210318/37931108.html \
                          https://news.sina.com.tw/article/20210415/38230928.html
 sample_appledaily_link = https://tw.appledaily.com/property/20210722/X7R2YYQTSJA3FMCB642SBQY5JM/ \
                          https://tw.appledaily.com/property/20200616/TYDZD67VFHQM3PKCZDL6ZL4TCA/
 sample_moneyudn_link   = https://money.udn.com/money/story/5607/5047950 \
                          https://money.udn.com/money/story/5612/5560454
-sample_ctee_link 	   = https://ctee.com.tw/news/stocks/491412.html \
+sample_ctee_link       = https://ctee.com.tw/news/stocks/491412.html \
                          https://ctee.com.tw/news/stocks/487126.html
 sample_technews_link   = https://finance.technews.tw/2021/06/09/caswell-6416-202105-financial-report/ \
                          https://finance.technews.tw/2021/07/09/mvi-2342-202106-financial-report/
-sample_bnext_link 	   = https://meet.bnext.com.tw/articles/view/44652 \
+sample_bnext_link      = https://meet.bnext.com.tw/articles/view/44652 \
                          https://meet.bnext.com.tw/articles/view/47657
-sample_cynes_link 	   = https://news.cnyes.com/news/id/4520040 \
+sample_cynes_link      = https://news.cnyes.com/news/id/4520040 \
                          https://m.cnyes.com/news/id/4537458
-sample_ebc_link 	   = https://fnc.ebc.net.tw/FncNews/stock/127025 \
+sample_ebc_link        = https://fnc.ebc.net.tw/FncNews/stock/127025 \
                          https://fnc.ebc.net.tw/fncnews/else/135466
 sample_cmmedia_link    = https://www.cmmedia.com.tw/home/articles/28422 \
                          https://www.cmmedia.com.tw/home/articles/29234
