@@ -4,4 +4,3 @@
 .coverage
 __pycache__
 out/googlenews.json
-out/sample*
