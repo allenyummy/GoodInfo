@@ -3,7 +3,6 @@
 # Description: Get news
 
 import logging
-from typing import Dict
 
 from bs4 import BeautifulSoup
 
@@ -17,16 +16,12 @@ class AppleDailyNewsCrawler(BaseMediaCrawler):
     """Web Crawler for AppleDaily News"""
 
     MEDIA_CANDIDATES = ["蘋果日報"]
-    CONTENT_ATTR_PATH = ".article-text-size_md"
+    CONTENT_ATTR_PATH = None
 
     def getInfo(self, link: str) -> NewsStruct:
         return super().getInfo(link)
 
     def _get_content(self, soup: BeautifulSoup) -> str:
-        content = soup.select_one(self.CONTENT_ATTR_PATH).text
+        content = soup.find("div", id="articleBody").text
         logger.debug(f"CONTENT:\n {content}")
         return content
-
-    @staticmethod
-    def _get_link(script_info: Dict[str, str]) -> str:
-        return script_info.get("mainEntityOfPage").get("@id")
