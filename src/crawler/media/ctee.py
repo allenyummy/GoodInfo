@@ -18,7 +18,7 @@ class CTEENewsCrawler(BaseMediaCrawler):
     """Web Crawler for CTEE News"""
 
     MEDIA_CANDIDATES = ["工商時報"]
-    CONTENT_ATTR_PATH = ".entry-content"
+    CONTENT_ATTR_PATH = None
 
     def getInfo(self, link: str) -> NewsStruct:
         return super().getInfo(link)
