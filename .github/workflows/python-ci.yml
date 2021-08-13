@@ -32,7 +32,11 @@ jobs:
       - name: Install dependencies if no cache_pip
         if: steps.cache_pip.outputs.cache-hit != 'true'
         run: |
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          if [ -f requirements_dev.txt ]; then
+              pip install -r requirements_dev.txt
+          else
+              echo "requirements_dev.txt not found !" 
+          fi
 
       - name: Lint with flake8
         run: flake8 .
