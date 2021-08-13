@@ -43,7 +43,7 @@ MEDIA_URL = {
     "中央社": "https://www.cna.com.tw",
     "中國廣播公司": "https://www.bcc.com.tw",
     "財訊": "https://www.wealth.com.tw",
-    "DigiTimes": "http://www.digitimes.com.tw",
+    "DigiTimes": "https://www.digitimes.com.tw",
     "MoneyDJ理財網": "https://www.moneydj.com",
     "Youtube": "https://www.youtube.com",  # Not supported
 }

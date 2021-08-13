@@ -23,6 +23,14 @@ from src.crawler.media import (
     ttv,
     udn,
     yahoo,
+    cmmedia,
+    storm,
+    mirror,
+    cna,
+    bcc,
+    wealth,
+    digitimes,
+    moneydj,
 )
 from src.utils.struct import NewsStruct
 from src.utils.utility import readJson, writeJson
@@ -69,7 +77,7 @@ def parse_args():
     return args
 
 
-def MediaCrawlerFactory(media_name: str):
+def NewsCrawlerFactory(media_name: str):
 
     LOCALIZERS = {
         "yahoo": yahoo.YahooNewsCrawler,
@@ -88,6 +96,14 @@ def MediaCrawlerFactory(media_name: str):
         "bnext": bnext.BnextNewsCrawler,
         "cynes": cynes.CYNESNewsCrawler,
         "ebc": ebc.EBCNewsCrawler,
+        "cmmedia": cmmedia.CMMediaNewsCrawler,
+        "storm": storm.StormNewsCrawler,
+        "mirror": mirror.MirrorNewsCrawler,
+        "cna": cna.CNANewsCrawler,
+        "bcc": bcc.BCCNewsCrawler,
+        "wealth": wealth.WealthNewsCrawler,
+        "digitimes": digitimes.DigitimesNewsCrawler,
+        "moneydj": moneydj.MoneyDJNewsCrawler,
     }
     return LOCALIZERS[media_name]()
 
@@ -104,7 +120,7 @@ def main():
         cache = [NewsStruct(**c) for c in cache]
 
     """ Instantiate NewsCrawler """
-    nc = MediaCrawlerFactory(args.media)
+    nc = NewsCrawlerFactory(args.media)
 
     """ Get news from link """
     news_list = list()
