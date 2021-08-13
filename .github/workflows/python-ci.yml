@@ -29,7 +29,7 @@ jobs:
           path: ~/.cache/pip
           key: ${{ hashFiles('setup.py') }}-${{ hashFiles('requirements_dev.txt') }}
 
-      - name: Install dependencies if no cache_pip
+      - name: Install dependencies (requirements_dev.txt) if no cache_pip
         if: steps.cache_pip.outputs.cache-hit != 'true'
         run: |
           if [ -f requirements_dev.txt ]; then
@@ -42,4 +42,4 @@ jobs:
         run: flake8 .
 
       - name: Test crawler/media/* with pytest
-        run: pytest tests/test_crawler_media --log-cli-level=warning --cov=./ --cov-report=term-missing
+        run: PYTHONPATH=./ pytest tests/test_crawler_media --log-cli-level=warning --cov=./ --cov-report=term-missing
