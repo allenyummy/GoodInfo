@@ -16,20 +16,12 @@ class YahooNewsCrawler(BaseMediaCrawler):
     """Web Crawler for Yahoo News"""
 
     MEDIA_CANDIDATES = ["Yahoo奇摩新聞", "Yahoo奇摩股市"]
-    CONTENT_ATTR_PATH = (
-        ".caas "
-        ".caas-container "
-        ".caas-body-inner-wrapper "
-        ".caas-body-section "
-        ".caas-content "
-        ".caas-content-wrapper "
-        ".caas-body"
-    )
+    CONTENT_ATTR_PATH = None
 
     def getInfo(self, link: str) -> NewsStruct:
         return super().getInfo(link)
 
     def _get_content(self, soup: BeautifulSoup) -> str:
-        content = soup.select_one(self.CONTENT_ATTR_PATH).text
+        content = soup.find("div", class_="caas-body").text
         logger.debug(f"CONTENT:\n {content}\n")
         return content
