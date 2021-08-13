@@ -4,7 +4,7 @@
 
 import json
 import logging
-from typing import Dict
+from typing import Dict, List, Union
 
 from bs4 import BeautifulSoup
 
@@ -24,7 +24,9 @@ class CTEENewsCrawler(BaseMediaCrawler):
         return super().getInfo(link)
 
     def _get_content(self, soup: BeautifulSoup) -> str:
-        content = soup.select_one(self.CONTENT_ATTR_PATH).text
+        content = soup.find(
+            "div", class_="entry-content clearfix single-post-content"
+        ).text
         logger.debug(f"CONTENT:\n {content}")
         return content
 
@@ -40,3 +42,12 @@ class CTEENewsCrawler(BaseMediaCrawler):
         # I don't get them. I just let them go because it's a special case.
         # Maybe after a while, I'll figure out how to resolve it in an elegant way.
         return script_info_dict
+
+    @staticmethod
+    def _get_keywords(
+        script_info: Dict[str, str], soup: BeautifulSoup
+    ) -> Union[List[str], None]:
+        keywords_list = soup.find_all("a", rel="tag")
+        keywords = [k.text for k in keywords_list]
+        logger.debug(f"KEYWORDS: {keywords}")
+        return keywords
