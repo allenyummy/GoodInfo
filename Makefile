@@ -139,7 +139,8 @@ run_test_all:
 		--cov=./ \
 		--cov-report term-missing
 
-	# for media in $(TARGET_MEDIA); do \
-	# 	echo ====== $$media ======; \
-	# 	make run_test media=$$media; \
-	# done
+# run_test_all:
+# for media in $(TARGET_MEDIA); do \
+# 	echo ====== $$media ======; \
+# 	make run_test media=$$media; \
+# done
