@@ -77,7 +77,7 @@ def parse_args():
     return args
 
 
-def NewsCrawlerFactory(media_name: str):
+def MediaNewsCrawlerFactory(media_name: str):
 
     LOCALIZERS = {
         "yahoo": yahoo.YahooNewsCrawler,
@@ -120,7 +120,7 @@ def main():
         cache = [NewsStruct(**c) for c in cache]
 
     """ Instantiate NewsCrawler """
-    nc = NewsCrawlerFactory(args.media)
+    nc = MediaNewsCrawlerFactory(args.media)
 
     """ Get news from link """
     news_list = list()
