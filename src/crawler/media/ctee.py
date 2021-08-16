@@ -8,30 +8,25 @@ from typing import Dict, List, Union
 
 from bs4 import BeautifulSoup
 
-from src.crawler.media.base import BaseMediaCrawler
+from src.crawler.media.base import BaseMediaNewsCrawler
 from src.utils.struct import NewsStruct
 
 logger = logging.getLogger(__name__)
 
 
-class CTEENewsCrawler(BaseMediaCrawler):
+class CTEENewsCrawler(BaseMediaNewsCrawler):
     """Web Crawler for CTEE News"""
 
     MEDIA_CANDIDATES = ["工商時報"]
-    CONTENT_ATTR_PATH = None
 
     def getInfo(self, link: str) -> NewsStruct:
         return super().getInfo(link)
 
-    def _get_content(self, soup: BeautifulSoup) -> str:
-        content = soup.find(
-            "div", class_="entry-content clearfix single-post-content"
-        ).text
-        logger.debug(f"CONTENT:\n {content}")
-        return content
-
     @staticmethod
-    def _get_script_info(soup: BeautifulSoup) -> Dict[str, str]:
+    def _get_script_info(
+        soup: BeautifulSoup,
+    ) -> Dict[str, str]:
+
         # use 4-th element (0-indexed)
         script_info_str = soup.find_all("script", type="application/ld+json")[3].string
         script_info_dict = json.loads(script_info_str)
@@ -45,9 +40,22 @@ class CTEENewsCrawler(BaseMediaCrawler):
 
     @staticmethod
     def _get_keywords(
-        script_info: Dict[str, str], soup: BeautifulSoup
+        script_info: Dict[str, str],
+        soup: BeautifulSoup,
     ) -> Union[List[str], None]:
+
         keywords_list = soup.find_all("a", rel="tag")
         keywords = [k.text for k in keywords_list]
         logger.debug(f"KEYWORDS: {keywords}")
         return keywords
+
+    def _get_content(
+        self,
+        soup: BeautifulSoup,
+    ) -> str:
+
+        content = soup.find(
+            "div", class_="entry-content clearfix single-post-content"
+        ).text
+        logger.debug(f"CONTENT:\n {content}")
+        return content
