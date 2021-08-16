@@ -5,7 +5,7 @@
 import json
 import logging
 from abc import ABC, abstractmethod
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Union
 
 import requests
 from bs4 import BeautifulSoup
@@ -16,11 +16,10 @@ from src.utils.struct import NewsStruct
 logger = logging.getLogger(__name__)
 
 
-class BaseMediaCrawler(ABC):
+class BaseMediaNewsCrawler(ABC):
     """Web Crawler for Media News"""
 
     MEDIA_CANDIDATES: List[str] = None
-    CONTENT_ATTR_PATH: Optional[str] = None
 
     def getInfo(self, link: str) -> NewsStruct:
 
@@ -34,6 +33,12 @@ class BaseMediaCrawler(ABC):
 
         # Crawling and Turn to soup
         soup = self._get_soup(link=link)
+
+        # Get a script snippet that is a JSON-LD-based structured data block embedded in HTML
+        #    that provides data to User Agents for additional processing.
+        # This data can take the form of Metadata
+        #    that informs User Agents about the nature of the host documents.
+        # By the way, it may be None for some reasons.
         script_info = self._get_script_info(soup=soup)
 
         return NewsStruct(
@@ -54,7 +59,9 @@ class BaseMediaCrawler(ABC):
             return None
 
     @staticmethod
-    def _get_soup(link: str) -> BeautifulSoup:
+    def _get_soup(
+        link: str,
+    ) -> BeautifulSoup:
         return BeautifulSoup(
             requests.get(
                 link,
@@ -67,16 +74,14 @@ class BaseMediaCrawler(ABC):
             "lxml",
         )
 
-    @abstractmethod
-    def _get_content(self, soup: BeautifulSoup) -> str:
-        raise NotImplementedError
-
     @staticmethod
-    def _get_script_info(soup: BeautifulSoup) -> Dict[str, str]:
+    def _get_script_info(
+        soup: BeautifulSoup,
+    ) -> Dict[str, str]:
 
         script_info = soup.find("script", type="application/ld+json")
         if not script_info:
-            logger.warning("script_info is not found in the soup.")
+            logger.debug("script_info is not found in the soup.")
             return script_info
 
         script_info_str = script_info.string
@@ -102,7 +107,7 @@ class BaseMediaCrawler(ABC):
 
         if not isinstance(script_info_dict, dict):
             script_info_dict = None
-            logger.warning(
+            logger.debug(
                 "script_info is found in the soup, "
                 "but its type is not dictionary.\n\n"
                 "Possible reasons are as follows:\n"
@@ -118,22 +123,40 @@ class BaseMediaCrawler(ABC):
         return script_info_dict
 
     @staticmethod
-    def _get_title(script_info: Dict[str, str], soup: BeautifulSoup) -> str:
+    def _get_title(
+        script_info: Dict[str, str],
+        soup: BeautifulSoup,
+    ) -> str:
 
         title = None
+        findfrom_message = ""
+
         if script_info and script_info.get("headline"):
             title = script_info.get("headline")
-        else:
-            title = soup.find("title").text if soup.find("title") else None
+            findfrom_message = "script_info has `headline` key."
 
-        logger.debug(f"TITLE: {title}")
+        elif soup.find("meta", property="og:title"):
+            title = soup.find("meta", property="og:title").get("content")
+            findfrom_message = "soup has `<meta property='og:title'>`."
+
+        elif soup.find("title"):
+            title = soup.find("title").text
+            findfrom_message = "soup has `<title>` tag."
+
+        logger.debug(
+            f"TITLE: {title}"
+            f"{'. Found it because '+ findfrom_message if title else ''}"
+        )
+
         if not title:
             raise ValueError(
+                "\n"
                 "TITLE is not found by using BaseMediaCrawler._get_title().\n"
                 "Possible reasons are as follows:\n"
-                "1) script_info is None.\n"
-                "2) script_info has no key of `headline`.\n"
-                "3) soup has no `title` tag.\n"
+                "- script_info is None.\n"
+                "- script_info has no `headline` key.\n"
+                "- soup has no `<meta property='og:title'>`.\n"
+                "- soup has no `<title>` tag.\n"
                 "Therefore, time to debug!\n"
                 "`_get_title` function should not be inheritted but overwritten.\n\n"
             )
@@ -142,28 +165,62 @@ class BaseMediaCrawler(ABC):
 
     @staticmethod
     def _get_keywords(
-        script_info: Dict[str, str], soup: BeautifulSoup
+        script_info: Dict[str, str],
+        soup: BeautifulSoup,
     ) -> Union[List[str], None]:
 
         keywords = None
+        findfrom_message = ""
+        possible_attrs = [
+            {"name": "news_keywords"},
+            {"name": "keywords"},
+            {"itemprop": "news_keywords"},
+            {"itemprop": "keywords"},
+            {"name": "keyword"},
+        ]
+
         if script_info and script_info.get("keywords"):
             keywords = script_info.get("keywords")
+            findfrom_message = "script_info has `keywords` key."
+
         else:
-            keywords = soup.find("news_keywords") or soup.find("keywords")
-            keywords = keywords.text if keywords else None
+            for attrs in possible_attrs:
+                if soup.find("meta", attrs=attrs):
+                    keywords = soup.find("meta", attrs=attrs).get("content")
+                    key, value = next(iter(attrs.items()))
+                    findfrom_message = f"soup has `<meta {key}='{value}'>`."
+                    break
 
         if keywords and isinstance(keywords, str):
             # Most keywords whose types are string are connected with each other by ",".
-            keywords = keywords.split(",")
+            if "," in keywords:
+                keywords = [k.strip() for k in keywords.split(",")]
 
-        logger.debug(f"KEYWORDS: {keywords}")
+            elif "、" in keywords:
+                keywords = [k.strip() for k in keywords.split("、")]
+
+            else:
+                keywords = [keywords]
+
+        logger.debug(
+            f"KEYWORDS: {keywords}"
+            f"{'. Found it because '+ findfrom_message if keywords else ''}"
+        )
+
         if not keywords:
-            logger.warning(
+            logger.debug(
+                "\n"
                 "KEYWORDS are not found by using BaseMediaCrawler._get_keywords().\n"
                 "Possible reasons are as follows:\n"
-                "1) script_info is None.\n"
-                "2) script_info has no key of `keywords`.\n"
-                "3) soup has no `news_keywords` or `keywords` tag.\n"
+                "- script_info is None.\n"
+                "- script_info has no `keywords` key.\n"
+                + "\n".join(
+                    f"- soup has no `<meta {key}={value}>`."
+                    for attrs in possible_attrs
+                    for key, value in attrs.items()
+                )
+                + "\n"
+                "- this article has no keywords.\n"
                 "Therefore, time to debug!\n"
                 "`_get_keywords` function should not be inheritted but overwritten.\n\n"
             )
@@ -171,20 +228,51 @@ class BaseMediaCrawler(ABC):
         return keywords
 
     @staticmethod
-    def _get_category(script_info: Dict[str, str], soup: BeautifulSoup) -> str:
+    def _get_category(
+        script_info: Dict[str, str],
+        soup: BeautifulSoup,
+    ) -> Union[str, None]:
 
         category = None
+        findfrom_message = ""
+        possible_attrs = [
+            {"property": "article:section"},
+            {"itemprop": "articleSection"},
+            {"itemtype": "articleSection"},
+            {"name": "section"},
+        ]
+
         if script_info and script_info.get("articleSection"):
             category = script_info.get("articleSection")
+            findfrom_message = "script_info has `articleSection` key."
 
-        logger.debug(f"CATEGORY: {category}")
+        else:
+            for attrs in possible_attrs:
+                if soup.find("meta", attrs=attrs):
+                    category = soup.find("meta", attrs=attrs).get("content")
+                    key, value = next(iter(attrs.items()))
+                    findfrom_message = f"soup has `<meta {key}='{value}'>`."
+                    break
+
+        logger.debug(
+            f"CATEGORY: {category}"
+            f"{'. Found it because '+ findfrom_message if category else ''}"
+        )
+
         if not category:
-            logger.warning(
+            logger.debug(
+                "\n"
                 "CATEGORY is not found by using BaseMediaCrawler._get_category().\n"
                 "Possible reasons are as follows:\n"
-                "1) script_info is None.\n"
-                "2) script_info has no key of `articleSection`.\n"
-                "3) the article has no category.\n"
+                "- script_info is None.\n"
+                "- script_info has no `articleSection` key.\n"
+                + "\n".join(
+                    f"- soup has no `<meta {key}={value}>`."
+                    for attrs in possible_attrs
+                    for key, value in attrs.items()
+                )
+                + "\n"
+                "- this article has no category.\n"
                 "Therefore, time to debug!\n"
                 "`_get_category` function should not be inheritted but overwritten.\n\n"
             )
@@ -192,41 +280,56 @@ class BaseMediaCrawler(ABC):
         return category
 
     @staticmethod
-    def _get_datetime(script_info: Dict[str, str], soup: BeautifulSoup) -> str:
+    def _get_datetime(
+        script_info: Dict[str, str],
+        soup: BeautifulSoup,
+    ) -> Union[str, None]:
 
         datetime = None
+        findfrom_message = ""
+        possible_attrs = [
+            {"property": "article:published_time"},
+            {"itemprop": "datePublished"},
+        ]
+
         if script_info and script_info.get("datePublished"):
             datetime = script_info.get("datePublished")
+        else:
+            for attrs in possible_attrs:
+                if soup.find("meta", attrs=attrs):
+                    datetime = soup.find("meta", attrs=attrs).get("content")
+                    key, value = next(iter(attrs.items()))
+                    findfrom_message = f"soup has `<meta {key}='{value}'>`."
+                    break
 
         logger.debug(f"DATETIME: {datetime}")
+        logger.debug(
+            f"DATETIME: {datetime}"
+            f"{'. Found it because '+ findfrom_message if datetime else ''}"
+        )
+
         if not datetime:
-            logger.warning(
+            logger.debug(
                 "DATETIME is not found by using BaseMediaCrawler._get_datetime().\n"
                 "Possible reasons are as follows:\n"
                 "1) script_info is None.\n"
-                "2) script_info has no key of `datePublished`.\n"
+                "2) script_info has no `datePublished` key.\n"
+                + "\n".join(
+                    f"- soup has no `<meta {key}={value}>`."
+                    for attrs in possible_attrs
+                    for key, value in attrs.items()
+                )
+                + "\n"
                 "Therefore, time to debug!\n"
                 "`_get_datetime` function should not be inheritted but overwritten.\n\n"
             )
 
         return datetime
 
-    @staticmethod
-    def _get_link(script_info: Dict[str, str]) -> str:
+    @abstractmethod
+    def _get_content(
+        self,
+        soup: BeautifulSoup,
+    ) -> str:
 
-        link = None
-        if script_info and script_info.get("mainEntityOfPage"):
-            link = script_info.get("mainEntityOfPage")
-
-        logger.debug(f"LINK: {link}")
-        if not link:
-            logger.warning(
-                "LINK is not found by using BaseMediaCrawler._get_link().\n"
-                "Possible reasons are as follows:\n"
-                "1) script_info is None.\n"
-                "2) script_info has no key of `mainEntityOfPage`.\n"
-                "Therefore, time to debug!\n"
-                "`_get_link` function should not be inheritted but overwritten.\n\n"
-            )
-
-        return link
+        raise NotImplementedError

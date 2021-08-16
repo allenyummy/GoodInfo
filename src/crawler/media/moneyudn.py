@@ -8,25 +8,19 @@ from typing import Dict
 
 from bs4 import BeautifulSoup
 
-from src.crawler.media.base import BaseMediaCrawler
+from src.crawler.media.base import BaseMediaNewsCrawler
 from src.utils.struct import NewsStruct
 
 logger = logging.getLogger(__name__)
 
 
-class MoneyUDNNewsCrawler(BaseMediaCrawler):
+class MoneyUDNNewsCrawler(BaseMediaNewsCrawler):
     """Web Crawler for MoneyUDN News"""
 
     MEDIA_CANDIDATES = ["經濟日報"]
-    CONTENT_ATTR_PATH = None
 
     def getInfo(self, link: str) -> NewsStruct:
         return super().getInfo(link)
-
-    def _get_content(self, soup: BeautifulSoup) -> str:
-        content = soup.find("div", id="article_body").text
-        logger.debug(f"CONTENT:\n {content}")
-        return content
 
     @staticmethod
     def _get_script_info(soup: BeautifulSoup) -> Dict[str, str]:
@@ -54,3 +48,12 @@ class MoneyUDNNewsCrawler(BaseMediaCrawler):
         script_info_dict = json.loads(script_info_str)
         logger.debug(f"SCRIPT_INFO_DICT:\n {script_info_dict}")
         return script_info_dict
+
+    def _get_content(
+        self,
+        soup: BeautifulSoup,
+    ) -> str:
+
+        content = soup.find("div", id="article_body").text
+        return content
+        return content
