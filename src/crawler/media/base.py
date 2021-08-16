@@ -16,7 +16,7 @@ from src.utils.struct import NewsStruct
 logger = logging.getLogger(__name__)
 
 
-class BaseMediaCrawler(ABC):
+class BaseMediaNewsCrawler(ABC):
     """Web Crawler for Media News"""
 
     MEDIA_CANDIDATES: List[str] = None
