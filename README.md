@@ -80,9 +80,10 @@ If wanna modify some codes, it's highly recommended to install both basic and de
     ```
     Noted:
 
-    1. `$(link)` could be one or multiple. If multiple links, spearated them by white space.
-    2. `$(outfile)` and `$(cachefile)` could be same or different. Both of them must be json file.
-    3. `$(media)` args could be as follows:
+    + `$(link)` could be one or multiple. If multiple links, spearated them by white space.
+    + `$(outfile)` and `$(cachefile)` could be same or different. Both of them must be json file.
+    + `$(media)` args could be as follows:
+
 
     |    media    |  supported |  main url   |
     |:-----------:|:----------:|:-----------:|
@@ -111,7 +112,8 @@ If wanna modify some codes, it's highly recommended to install both basic and de
     |   wealth    |    o       |  [財訊](https://www.wealth.com.tw)
     |   yahoo     |    o       |  [Yahoo奇摩新聞](https://tw.news.yahoo.com) <br> [Yahoo奇摩股市](https://tw.stock.yahoo.com)
 
-    4. run example code for specific media, and it will generate a `out/sample_$(media).json` in local.
+
+    + run example code for specific media, and it will generate a `out/sample_$(media).json` in local.
         ```
         $ make run_example media=$(media)
         ```
