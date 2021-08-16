@@ -15,35 +15,35 @@
 台灣股市資訊網_基本資料_網址 = "https://goodinfo.tw/StockInfo/BasicInfo.asp"
 
 MEDIA_URL = {
-    "Yahoo奇摩新聞": "https://tw.news.yahoo.com",
-    "Yahoo奇摩股市": "https://tw.stock.yahoo.com",
-    "ETtoday新聞雲": "https://www.ettoday.net",
-    "ETtoday財經雲": "https://finance.ettoday.net",
-    "自由時報電子報": "https://news.ltn.com.tw",
-    "自由財經": "https://ec.ltn.com.tw",
-    "中時新聞網": "https://www.chinatimes.com",
-    "聯合新聞網": "https://udn.com",
-    "台視新聞": "https://news.ttv.com.tw",  # No news
-    "民視新聞": "https://www.ftvnews.com.tw",
-    "華視新聞網": "https://news.cts.com.tw",  # No news
-    "新浪新聞": "https://news.sina.com.tw",
     "蘋果日報": "https://tw.appledaily.com",
-    "經濟日報": "https://money.udn.com",
-    "工商時報": "https://ctee.com.tw",
-    "科技新報": "https://technews.tw",  # no script_info
-    "財經新報": "https://finance.technews.tw",  # no script_info
+    "中國廣播公司": "https://www.bcc.com.tw",
     "數位時代": "https://www.bnext.com.tw",
     "Meet創業小聚": "https://meet.bnext.com.tw",
+    "中時新聞網": "https://www.chinatimes.com",
+    "信傳媒": "https://www.cmmedia.com.tw",
+    "中央社": "https://www.cna.com.tw",
+    "工商時報": "https://ctee.com.tw",
+    "華視新聞網": "https://news.cts.com.tw",  # No news
     "鉅亨網": "https://m.cnyes.com",
     "鉅亨新聞網": "https://news.cnyes.com",
-    "東森財經新聞": "https://fnc.ebc.net.tw",  # cannot catch content
-    "信傳媒": "https://www.cmmedia.com.tw",
-    "風傳媒": "https://www.storm.mg",
-    "鏡週刊": "https://www.mirrormedia.mg",
-    "中央社": "https://www.cna.com.tw",
-    "中國廣播公司": "https://www.bcc.com.tw",
-    "財訊": "https://www.wealth.com.tw",
     "DigiTimes": "https://www.digitimes.com.tw",
+    "東森財經新聞": "https://fnc.ebc.net.tw",  # contents got locked
+    "ETtoday新聞雲": "https://www.ettoday.net",
+    "ETtoday財經雲": "https://finance.ettoday.net",
+    "民視新聞": "https://www.ftvnews.com.tw",
+    "自由時報電子報": "https://news.ltn.com.tw",
+    "自由財經": "https://ec.ltn.com.tw",
+    "鏡週刊": "https://www.mirrormedia.mg",
     "MoneyDJ理財網": "https://www.moneydj.com",
+    "經濟日報": "https://money.udn.com",
+    "新浪新聞": "https://news.sina.com.tw",
+    "風傳媒": "https://www.storm.mg",
+    "科技新報": "https://technews.tw",  # no script_info
+    "財經新報": "https://finance.technews.tw",  # no script_info
+    "台視新聞": "https://news.ttv.com.tw",  # No news
+    "聯合新聞網": "https://udn.com",
+    "財訊": "https://www.wealth.com.tw",
+    "Yahoo奇摩新聞": "https://tw.news.yahoo.com",
+    "Yahoo奇摩股市": "https://tw.stock.yahoo.com",
     "Youtube": "https://www.youtube.com",  # Not supported
 }
