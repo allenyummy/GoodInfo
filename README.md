@@ -28,7 +28,7 @@ There are two ways to achieve the goal.
     $ pip install -r requirements.txt
     ```
 
-### Install basic and dev dependencies
+### Install basic and dev dependencies (optional)
 If wanna modify some codes, it's highly recommended to install both basic and dev dependencies.
 
 + Run command with `poetry install`
