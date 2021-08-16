@@ -1,4 +1,4 @@
-# Web Crawler for Taiwan GoodInfo
+# Web Crawler for GoodInfo and Financial News of Companies in Taiwan
 
 It's a web crawler to get information of listed companies, including their english names, chinese names, abbreviation, codes, and important related people. Besides, it also gets news of these companies. My goal is to build up a dataset of financial news to help the development of Chinese Natural Language Processing.
 
@@ -84,33 +84,32 @@ If wanna modify some codes, it's highly recommended to install both basic and de
     + `$(outfile)` and `$(cachefile)` could be same or different. Both of them must be json file.
     + `$(media)` args could be as follows:
 
-
-    |    media    |  supported |  main url   |
-    |:-----------:|:----------:|:-----------:|
-    |  appledaily |    o       | [蘋果日報](https://tw.appledaily.com) 
-    |   bcc       |    o       | [中國廣播公司](https://www.bcc.com.tw)
-    |   bnext     |    o       | [數位時代](https://www.bnext.com.tw) <br> [Meet創業小聚](https://meet.bnext.com.tw)
-    |  chinatimes |    o       | [中時新聞網](https://www.chinatimes.com)
-    |   cmmedia   |    o       | [信傳媒](https://www.cmmedia.com.tw)
-    |   cna       |    o       | [中央社](https://www.cna.com.tw)
-    |   ctee      |    o       |  [工商時報](https://ctee.com.tw)
-    |   cts       |    x <br> (no news)  |  [華視新聞網](https://news.cts.com.tw)
-    |   cynes     |    o       |  [鉅亨網](https://m.cnyes.com) <br> [鉅亨新聞網](https://news.cnyes.com)
-    |   digitimes |    o       |  [DigiTimes](https://www.digitimes.com.tw)
-    |   ebc       |    x <br> (contents are locked)  |  [東森財經新聞](https://fnc.ebc.net.tw)
-    |   ettoday   |    o       |  [ETtoday新聞雲](https://www.ettoday.net) <br> [ETtoday財經雲](https://finance.ettoday.net)
-    |   ftv       |    o       |  [民視新聞](https://www.ftvnews.com.tw)
-    |   ltn       |    o       |  [自由時報電子報](https://news.ltn.com.tw) <br> [自由財經](https://ec.ltn.com.tw)
-    |   mirror    |    o       |  [鏡週刊](https://www.mirrormedia.mg)
-    |   moneydj   |    o       |  [MoneyDJ理財網](https://www.moneydj.com)
-    |   moneyudn  |    o       |  [經濟日報](https://money.udn.com)
-    |   sina      |    o       |  [新浪新聞](https://news.sina.com.tw)
-    |   storm     |    o       |  [風傳媒](https://www.storm.mg)
-    |   technews  |    x <br> (not yet finished)   |  [科技新報](https://technews.tw) <br> [財經新報](https://finance.technews.tw)
-    |   ttv       |     x <br> (no news)   |  [台視新聞](https://news.ttv.com.tw)
-    |   udn       |    o       |  [聯合新聞網](https://udn.com)
-    |   wealth    |    o       |  [財訊](https://www.wealth.com.tw)
-    |   yahoo     |    o       |  [Yahoo奇摩新聞](https://tw.news.yahoo.com) <br> [Yahoo奇摩股市](https://tw.stock.yahoo.com)
+        |    media    |  supported |  main url   |
+        |:-----------:|:----------:|:-----------:|
+        |  appledaily |    o       | [蘋果日報](https://tw.appledaily.com) 
+        |   bcc       |    o       | [中國廣播公司](https://www.bcc.com.tw)
+        |   bnext     |    o       | [數位時代](https://www.bnext.com.tw) <br> [Meet創業小聚](https://meet.bnext.com.tw)
+        |  chinatimes |    o       | [中時新聞網](https://www.chinatimes.com)
+        |   cmmedia   |    o       | [信傳媒](https://www.cmmedia.com.tw)
+        |   cna       |    o       | [中央社](https://www.cna.com.tw)
+        |   ctee      |    o       |  [工商時報](https://ctee.com.tw)
+        |   cts       |    x <br> (no news)  |  [華視新聞網](https://news.cts.com.tw)
+        |   cynes     |    o       |  [鉅亨網](https://m.cnyes.com) <br> [鉅亨新聞網](https://news.cnyes.com)
+        |   digitimes |    o       |  [DigiTimes](https://www.digitimes.com.tw)
+        |   ebc       |    x <br> (contents are locked)  |  [東森財經新聞](https://fnc.ebc.net.tw)
+        |   ettoday   |    o       |  [ETtoday新聞雲](https://www.ettoday.net) <br> [ETtoday財經雲](https://finance.ettoday.net)
+        |   ftv       |    o       |  [民視新聞](https://www.ftvnews.com.tw)
+        |   ltn       |    o       |  [自由時報電子報](https://news.ltn.com.tw) <br> [自由財經](https://ec.ltn.com.tw)
+        |   mirror    |    o       |  [鏡週刊](https://www.mirrormedia.mg)
+        |   moneydj   |    o       |  [MoneyDJ理財網](https://www.moneydj.com)
+        |   moneyudn  |    o       |  [經濟日報](https://money.udn.com)
+        |   sina      |    o       |  [新浪新聞](https://news.sina.com.tw)
+        |   storm     |    o       |  [風傳媒](https://www.storm.mg)
+        |   technews  |    x <br> (not yet finished)   |  [科技新報](https://technews.tw) <br> [財經新報](https://finance.technews.tw)
+        |   ttv       |     x <br> (no news)   |  [台視新聞](https://news.ttv.com.tw)
+        |   udn       |    o       |  [聯合新聞網](https://udn.com)
+        |   wealth    |    o       |  [財訊](https://www.wealth.com.tw)
+        |   yahoo     |    o       |  [Yahoo奇摩新聞](https://tw.news.yahoo.com) <br> [Yahoo奇摩股市](https://tw.stock.yahoo.com)
 
 
     + run example code for specific media, and it will generate a `out/sample_$(media).json` in local.
