@@ -18,7 +18,13 @@ class TechnewsNewsCrawler(BaseMediaNewsCrawler):
     MEDIA_CANDIDATES = ["科技新報", "財經新報"]
 
     def getInfo(self, link: str) -> NewsStruct:
-        raise NotImplementedError
+        return super().getInfo(link)
 
-    def _get_content(self, soup: BeautifulSoup) -> str:
-        raise NotImplementedError
+    def _get_content(
+        self,
+        soup: BeautifulSoup,
+    ) -> str:
+
+        content = soup.find("div", class_="indent").text
+        logger.debug(f"CONTENT:\n {content}")
+        return content

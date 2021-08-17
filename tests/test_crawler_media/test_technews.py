@@ -23,20 +23,36 @@ TEST_DATA = namedtuple(
 TEST_DATA_1 = TEST_DATA(
     name="財經新報_1",
     link="https://finance.technews.tw/2021/06/09/caswell-6416-202105-financial-report/",
-    expected_output=NewsStruct(),
+    expected_output=NewsStruct(
+        title="瑞祺電通5月營收月增28.3%",
+        content="\n\n\n\n\n\n瑞祺電通（6416）公布 5 月合併營收 3.86 億元，較上（4）月成長 28.3%，與去年同期相比為年增 -14.5%；累計其今年前 5 月營收為 19.27 億元，較去年同期增加 -10.1%。\n\n\n",
+        keywords=None,
+        category=None,
+        media="財經新報",
+        datetime=None,
+        link="https://finance.technews.tw/2021/06/09/caswell-6416-202105-financial-report/",
+    ),
 )
 
 TEST_DATA_2 = TEST_DATA(
     name="財經新報_2",
     link="https://finance.technews.tw/2021/07/09/mvi-2342-202106-financial-report/",
-    expected_output=NewsStruct(),
+    expected_output=NewsStruct(
+        title="茂矽6月營收1.67 億元",
+        content="\n\n\n\n\n\n茂矽（2342）今（9）日公布 6 月營收，達 1.67 億元，較 5 月成長 -2.9%，較去年同期成長 -9.4%，累計前 6 月營收為 8.89 億元，年增 -2.8%。\n\n\n",
+        keywords=None,
+        category=None,
+        media="財經新報",
+        datetime=None,
+        link="https://finance.technews.tw/2021/07/09/mvi-2342-202106-financial-report/",
+    ),
 )
 
 
 @pytest.fixture(scope="module")
 def newsCrawler():
     logger.warning("Init News Crawler ...")
-    return technews.TechnewsNewsCrawler
+    return technews.TechnewsNewsCrawler()
 
 
 @pytest.mark.parametrize(
@@ -47,7 +63,6 @@ def newsCrawler():
         for t in [TEST_DATA_1, TEST_DATA_2]
     ],
 )
-@pytest.mark.skip(reason="Technews has no script info !")
 def test_get_info(
     newsCrawler,
     name,
