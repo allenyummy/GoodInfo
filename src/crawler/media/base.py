@@ -62,16 +62,28 @@ class BaseMediaNewsCrawler(ABC):
     def _get_soup(
         link: str,
     ) -> BeautifulSoup:
-        return BeautifulSoup(
-            requests.get(
-                link,
-                headers={
-                    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
-                    " AppleWebKit/605.1.15"
-                    " (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15",
-                },
-            ).text,
-            "lxml",
+
+        r = requests.get(
+            link,
+            headers={
+                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+                " AppleWebKit/605.1.15"
+                " (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15",
+            },
+        )
+
+        logger.debug(f"ENCODING: {r.encoding}")
+
+        return (
+            BeautifulSoup(
+                r.text,
+                "lxml",
+            )
+            if r.encoding.lower() in ["utf-8", "big5"]
+            else BeautifulSoup(
+                r.text.encode(r.encoding).decode("utf-8"),
+                "lxml",
+            )
         )
 
     @staticmethod
@@ -199,8 +211,14 @@ class BaseMediaNewsCrawler(ABC):
             elif "、" in keywords:
                 keywords = [k.strip() for k in keywords.split("、")]
 
+            elif " " in keywords:
+                keywords = [k.strip() for k in keywords.split(" ")]
+
             else:
                 keywords = [keywords]
+
+        if keywords and isinstance(keywords, list):
+            keywords = [k for k in keywords if k != ""]
 
         logger.debug(
             f"KEYWORDS: {keywords}"
@@ -294,6 +312,8 @@ class BaseMediaNewsCrawler(ABC):
 
         if script_info and script_info.get("datePublished"):
             datetime = script_info.get("datePublished")
+            findfrom_message = "script_info has `datePublished` key."
+
         else:
             for attrs in possible_attrs:
                 if soup.find("meta", attrs=attrs):
@@ -302,7 +322,6 @@ class BaseMediaNewsCrawler(ABC):
                     findfrom_message = f"soup has `<meta {key}='{value}'>`."
                     break
 
-        logger.debug(f"DATETIME: {datetime}")
         logger.debug(
             f"DATETIME: {datetime}"
             f"{'. Found it because '+ findfrom_message if datetime else ''}"
@@ -310,6 +329,7 @@ class BaseMediaNewsCrawler(ABC):
 
         if not datetime:
             logger.debug(
+                "\n"
                 "DATETIME is not found by using BaseMediaCrawler._get_datetime().\n"
                 "Possible reasons are as follows:\n"
                 "1) script_info is None.\n"
