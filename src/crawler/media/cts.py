@@ -15,10 +15,16 @@ logger = logging.getLogger(__name__)
 class CTSNewsCrawler(BaseMediaNewsCrawler):
     """Web Crawler for CTS News"""
 
-    MEDIA_CANDIDATES = ["華視新聞網"]
+    MEDIA_CANDIDATES = ["華視新聞"]
 
     def getInfo(self, link: str) -> NewsStruct:
-        raise NotImplementedError
+        return super().getInfo(link)
 
-    def _get_content(self, soup: BeautifulSoup) -> str:
-        raise NotImplementedError
+    def _get_content(
+        self,
+        soup: BeautifulSoup,
+    ) -> str:
+
+        content = soup.find("div", itemprop="articleBody").text
+        logger.debug(f"CONTENT:\n {content}")
+        return content
