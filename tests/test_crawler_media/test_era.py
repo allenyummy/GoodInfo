@@ -29,7 +29,7 @@ TEST_DATA_1 = TEST_DATA(
         keywords=["吳亦凡", "酒桌選妃", "性疑雲", "封殺", "中國", "北京人民檢察院", "性侵罪", "逮捕"],
         category=None,
         media="年代新聞",
-        datetime="2021-08-17 11:41",
+        datetime="2021-08-17 14:01",
         link="https://www.eracom.com.tw/EraNews/Home/Entertainment/2021-08-17/544662.html",
     ),
 )
@@ -43,7 +43,7 @@ TEST_DATA_2 = TEST_DATA(
         keywords=["國產疫苗", "聯亞疫苗", "生技股", "聯亞股價"],
         category=None,
         media="年代新聞",
-        datetime="2021-08-16 22:31",
+        datetime="2021-08-17 14:11",
         link="https://www.eracom.com.tw/EraNews/Home/Finance/2021-08-16/544573.html",
     ),
 )
