@@ -12,10 +12,10 @@ from src.utils.struct import NewsStruct
 logger = logging.getLogger(__name__)
 
 
-class CTSNewsCrawler(BaseMediaNewsCrawler):
-    """Web Crawler for CTS News"""
+class UpMediaNewsCrawler(BaseMediaNewsCrawler):
+    """Web Crawler for UpMedia News"""
 
-    MEDIA_CANDIDATES = ["華視新聞"]
+    MEDIA_CANDIDATES = ["上報"]
 
     def getInfo(self, link: str) -> NewsStruct:
         return super().getInfo(link)
@@ -25,6 +25,6 @@ class CTSNewsCrawler(BaseMediaNewsCrawler):
         soup: BeautifulSoup,
     ) -> str:
 
-        content = soup.find("div", itemprop="articleBody").text
+        content = soup.find("div", class_="editor").text
         logger.debug(f"CONTENT:\n {content}")
         return content

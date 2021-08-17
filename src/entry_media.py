@@ -6,32 +6,7 @@ import argparse
 import logging
 import os
 
-from src.crawler.media import (
-    appledaily,
-    bnext,
-    chinatimes,
-    ctee,
-    cts,
-    cynes,
-    ebc,
-    ettoday,
-    ftv,
-    ltn,
-    moneyudn,
-    sina,
-    technews,
-    ttv,
-    udn,
-    yahoo,
-    cmmedia,
-    storm,
-    mirror,
-    cna,
-    bcc,
-    wealth,
-    digitimes,
-    moneydj,
-)
+from src.crawler.media_news_crawler_factory import MediaNewsCrawlerFactory
 from src.utils.struct import NewsStruct
 from src.utils.utility import readJson, writeJson
 
@@ -75,37 +50,6 @@ def parse_args():
     )
     args = parser.parse_args()
     return args
-
-
-def MediaNewsCrawlerFactory(media_name: str):
-
-    LOCALIZERS = {
-        "yahoo": yahoo.YahooNewsCrawler,
-        "ettoday": ettoday.ETtodayNewsCrawler,
-        "ltn": ltn.LTNNewsCrawler,
-        "chinatimes": chinatimes.ChinatimesNewsCrawler,
-        "udn": udn.UDNNewsCrawler,
-        "ttv": ttv.TTVNewsCrawler,
-        "ftv": ftv.FTVNewsCrawler,
-        "cts": cts.CTSNewsCrawler,
-        "sina": sina.SINANewsCrawler,
-        "appledaily": appledaily.AppleDailyNewsCrawler,
-        "moneyudn": moneyudn.MoneyUDNNewsCrawler,
-        "ctee": ctee.CTEENewsCrawler,
-        "technews": technews.TechnewsNewsCrawler,
-        "bnext": bnext.BnextNewsCrawler,
-        "cynes": cynes.CYNESNewsCrawler,
-        "ebc": ebc.EBCNewsCrawler,
-        "cmmedia": cmmedia.CMMediaNewsCrawler,
-        "storm": storm.StormNewsCrawler,
-        "mirror": mirror.MirrorNewsCrawler,
-        "cna": cna.CNANewsCrawler,
-        "bcc": bcc.BCCNewsCrawler,
-        "wealth": wealth.WealthNewsCrawler,
-        "digitimes": digitimes.DigitimesNewsCrawler,
-        "moneydj": moneydj.MoneyDJNewsCrawler,
-    }
-    return LOCALIZERS[media_name]()
 
 
 def main():

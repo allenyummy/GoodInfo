@@ -12,10 +12,10 @@ from src.utils.struct import NewsStruct
 logger = logging.getLogger(__name__)
 
 
-class CTSNewsCrawler(BaseMediaNewsCrawler):
-    """Web Crawler for CTS News"""
+class TVBSNewsCrawler(BaseMediaNewsCrawler):
+    """Web Crawler for TVBS News"""
 
-    MEDIA_CANDIDATES = ["華視新聞"]
+    MEDIA_CANDIDATES = ["TVBS"]
 
     def getInfo(self, link: str) -> NewsStruct:
         return super().getInfo(link)

@@ -3,6 +3,7 @@
 # Description: Get news
 
 import logging
+from typing import Dict, List, Union
 
 from bs4 import BeautifulSoup
 
@@ -12,13 +13,23 @@ from src.utils.struct import NewsStruct
 logger = logging.getLogger(__name__)
 
 
-class CTSNewsCrawler(BaseMediaNewsCrawler):
-    """Web Crawler for CTS News"""
+class PeopleNewsNewsCrawler(BaseMediaNewsCrawler):
+    """Web Crawler for PeopleNews News"""
 
-    MEDIA_CANDIDATES = ["華視新聞"]
+    MEDIA_CANDIDATES = ["民報"]
 
     def getInfo(self, link: str) -> NewsStruct:
         return super().getInfo(link)
+
+    @staticmethod
+    def _get_keywords(
+        script_info: Dict[str, str],
+        soup: BeautifulSoup,
+    ) -> Union[List[str], None]:
+
+        keywords = None
+        logger.debug(f"KEYWORDS: {keywords}")
+        return keywords
 
     def _get_content(
         self,

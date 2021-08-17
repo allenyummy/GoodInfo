@@ -5,7 +5,7 @@
 import json
 import logging
 from dataclasses import asdict, dataclass, field
-from typing import Dict, List
+from typing import Dict, List, Union
 
 logger = logging.getLogger(__name__)
 
@@ -91,7 +91,7 @@ class NewsStruct:
         default_factory=list,
         metadata={"help": "News keywords."},
     )
-    category: str = field(
+    category: Union[str, List[str]] = field(
         default=None,
         metadata={"help": "News category."},
     )
