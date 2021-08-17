@@ -30,11 +30,13 @@ class PTSNewsCrawler(BaseMediaNewsCrawler):
         keywords_list = soup.find(
             "ul", class_="list-unstyled tag-list d-flex flex-wrap"
         ).find_all("a")
-        keywords = list()
-        for k in keywords_list:
-            cand = k.text.strip()
-            if cand != "..." and cand not in keywords:
-                keywords.append(cand)
+
+        keywords = sorted(
+            list(
+                set([k.text.strip() for k in keywords_list if k.text.strip() != "..."])
+            )
+        )
+
         logger.debug(f"KEYWORDS: {keywords}")
         return keywords
 
