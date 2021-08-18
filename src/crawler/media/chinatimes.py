@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 class ChinatimesNewsCrawler(BaseMediaNewsCrawler):
     """Web Crawler for Chinatimes News"""
 
-    MEDIA_CANDIDATES = ["中時新聞網"]
+    MEDIA_CANDIDATES = ["中時新聞網", "旺得富"]
 
     def getInfo(self, link: str) -> NewsStruct:
         return super().getInfo(link)

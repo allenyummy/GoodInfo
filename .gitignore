@@ -3,4 +3,4 @@
 .pytest_cache
 .coverage
 __pycache__
-out/googlenews.json
+out/googlenews*.json
