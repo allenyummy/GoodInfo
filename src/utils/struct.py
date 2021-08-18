@@ -76,6 +76,55 @@ def dict2GoodInfoStruct(ipt: Dict[str, str]):
 
 
 @dataclass
+class GoogleNewsStruct:
+    """Google News Data Structure"""
+
+    title: str = field(
+        default=None,
+        metadata={"help": "News title."},
+    )
+    description: str = field(
+        default=None,
+        metadata={"help": "News description in abbrev. way"},
+    )
+    media: str = field(
+        default=None,
+        metadata={"help": "Media which releases news."},
+    )
+    datetime: str = field(
+        default=None,
+        metadata={"help": "Datetime in which news is released."},
+    )
+    link: str = field(
+        default=None,
+        metadata={"help": "News link."},
+    )
+
+    def __eq__(self, other) -> bool:
+        return self.link == other.link
+
+    def __repr__(self):
+        return (
+            "\n"
+            f"[TITLE      ]: {self.title}\n"
+            f"[DESCRIPTION]: {self.description}\n"
+            f"[MEDIA      ]: {self.media}\n"
+            f"[DATETIME   ]: {self.datetime}\n"
+            f"[LINK       ]: {self.link}\n"
+        )
+
+    def __2json__(self):
+        return json.dumps(
+            asdict(self),
+            ensure_ascii=False,
+            indent=4,
+        )
+
+    def __2dict__(self, *args, **kwargs):
+        return json.loads(self.__2json__())
+
+
+@dataclass
 class NewsStruct:
     """News Data Structure"""
 
