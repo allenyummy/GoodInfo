@@ -135,9 +135,9 @@ def main():
         if i > 0 and i % write_every_n_companies == 0:
             logger.info(f"write file to {i}")
             write(args, cache, news_list)
-            sleep()
             write_every_n_companies = random.randint(20, 39)
             logger.info(f"reset write_every_{write_every_n_companies}_companies.")
+            sleep()
 
     logger.info(f"write all to {i}")
     write(args, cache, news_list)
