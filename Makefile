@@ -59,7 +59,8 @@ sample_ettoday_link      = "https://www.ettoday.net/news/20210720/2035771.htm" \
 sample_ltn_link          = "https://news.ltn.com.tw/news/business/breakingnews/3604805" \
                            "https://ec.ltn.com.tw/article/breakingnews/3468538"
 sample_chinatimes_link   = "https://www.chinatimes.com/realtimenews/20210712002325-260410" \
-                           "https://www.chinatimes.com/realtimenews/20210428001632-260410"
+                           "https://www.chinatimes.com/realtimenews/20210428001632-260410" \
+                           "https://wantrich.chinatimes.com/news/20210804S426253"
 sample_udn_link          = "https://udn.com/news/story/7253/5550651" \
                            "https://udn.com/news/story/7254/5542521"
 sample_ttv_link          = "https://news.ttv.com.tw/news/11008170000600W" \
