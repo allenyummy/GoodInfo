@@ -61,16 +61,27 @@ If wanna modify some codes, it's highly recommended to install both basic and de
 
 ### Get google news info
 
-+ Get google news. (I've not written argsparse yet. Sorry for inconvenience.)
++ Get google news.
     ```
-    PYTHONPATH=./ python src/gnews.json
+    python src/crawler/googlenews/gnews.py \
+        -iq $(input_query_file).txt \
+        -o $(outfile).json \
+        -c $(cachefile).json \
     ```
-    Noted that you should run above code to get `out/company.json`
-    Also, I use `time.sleep(30)` but it still got locked when get news every 40 companies, so I terminate the code every 40 companies to avoid your IP address locked.
+    Noted:
+
+    + `$(input_query_file).txt` contains queries for `src/crawler/googlenews/gnews.py`. One query per line and if a query contains multiple keywords, keywords should be concatenated with space.
+    + `$(outfile)` and `$(cachefile)` could be same or different. Both of them must be json file.
+    + The results should contain <b>title</b>, <b>description</b>, <b>media</b>, <b>datetime</b>, <b>link</b>. See more details in `src/utils/struct::GoogleNewsStruct`.
+    + Caution
+
+        Google may recognize the program as automated robots and block the IP, using cloud server and fetching data with high frequency will get higher chance to be blocked. Therefore, <b><u>connect hotspot from iphone</u></b> to run `gnews.py`. Once your IP address is blocked by Google, you can turn on flight mode and then turn off, and re-open your hotspot to change your IP address (p.s., hotspot ip address is floating.). Besides, I use `time.sleep(random.uniform(30, 50))` but it may lower the possibility to get IP blocked.
+
+        If got locked, you'll receive a message of `HTTP Error 420: Too many requests`. Just do the action mentioned above and you can run the program successfully.
 
 ### Get news (given a link or links)
 
-+ Get news details (<b>title</b>, <b>content</b>, <b>keywords</b>, <b>category</b>, <b>media</b>, <b>datetime</b>, <b>link</b>)
++ Get news details
     ```
     python src/entry_media.py \
         -m $(media) \
@@ -82,6 +93,7 @@ If wanna modify some codes, it's highly recommended to install both basic and de
 
     + `$(link)` could be one or multiple. If multiple links, spearated them by white space.
     + `$(outfile)` and `$(cachefile)` could be same or different. Both of them must be json file.
+    + The results should contain <b>title</b>, <b>content</b>, <b>keywords</b>, <b>category</b>, <b>media</b>, <b>datetime</b>, <b>link</b>. See more details in `src/utils/struct::NewsStruct`.
     + `$(media)` args could be as follows:
 
         |    media    |  supported |  main url   |
