@@ -5,7 +5,7 @@
 import logging
 import pytest
 from collections import namedtuple
-from src.crawler.media import cynes
+from src.crawler.media import cnyes
 from src.utils.struct import NewsStruct
 
 logger = logging.getLogger(__name__)
@@ -52,7 +52,7 @@ TEST_DATA_2 = TEST_DATA(
 @pytest.fixture(scope="module")
 def newsCrawler():
     logger.warning("Init News Crawler ...")
-    return cynes.CYNESNewsCrawler()
+    return cnyes.CNYESNewsCrawler()
 
 
 @pytest.mark.parametrize(

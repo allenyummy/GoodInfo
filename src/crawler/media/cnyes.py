@@ -14,8 +14,8 @@ from src.utils.struct import NewsStruct
 logger = logging.getLogger(__name__)
 
 
-class CYNESNewsCrawler(BaseMediaNewsCrawler):
-    """Web Crawler for CYNES News"""
+class CNYESNewsCrawler(BaseMediaNewsCrawler):
+    """Web Crawler for CNYES News"""
 
     MEDIA_CANDIDATES = ["鉅亨網", "鉅亨新聞網"]
 
