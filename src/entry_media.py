@@ -1,6 +1,6 @@
 # encoding=utf-8
 # Author: Yu-Lun Chiang
-# Description: Get news
+# Description: Entry program to get news from media
 
 import argparse
 import logging
@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 def parse_args():
 
     parser = argparse.ArgumentParser(
-        description="Web Crawler for News.",
+        description="Web Crawler for News fomr Media.",
     )
     parser.add_argument(
         "-m",
