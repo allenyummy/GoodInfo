@@ -20,6 +20,7 @@ MEDIA_URL = {
     "數位時代": "https://www.bnext.com.tw",
     "Meet創業小聚": "https://meet.bnext.com.tw",
     "中時新聞網": "https://www.chinatimes.com",
+    "旺得富": "https://wantrich.chinatimes.com",
     "信傳媒": "https://www.cmmedia.com.tw",
     "中央社": "https://www.cna.com.tw",
     "匯流新聞網": "https://cnews.com.tw",
