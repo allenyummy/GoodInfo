@@ -26,7 +26,7 @@ help:
 	@echo "                    The supported media options are as follows:"
 	@echo "                          yahoo ettoday ltn chinatimes udn"
 	@echo "                          ftv sina appledaily moneyudn ctee"
-	@echo "                          bnext cynes ttv cts technews ebc"
+	@echo "                          bnext cnyes ttv cts technews ebc"
 	@echo "                          cmmedia storm mirror cna bcc wealth"
 	@echo "                          digitimes moneydj cnews ctitv ctv"
 	@echo "                          epochtimes era kairos mypeoplevol"
@@ -42,7 +42,7 @@ help:
 ## MEDIA
 TARGET_MEDIA = yahoo ettoday ltn chinatimes udn \
                ftv sina appledaily moneyudn ctee \
-               bnext cynes ttv cts technews ebc \
+               bnext cnyes ttv cts technews ebc \
                cmmedia storm mirror cna bcc wealth \
                digitimes moneydj cnews ctitv ctv \
                epochtimes era kairos mypeoplevol \
@@ -81,7 +81,7 @@ sample_technews_link     = "https://finance.technews.tw/2021/06/09/caswell-6416-
                            "https://finance.technews.tw/2021/07/09/mvi-2342-202106-financial-report/"
 sample_bnext_link        = "https://meet.bnext.com.tw/articles/view/44652" \
                            "https://meet.bnext.com.tw/articles/view/47657"
-sample_cynes_link        = "https://news.cnyes.com/news/id/4520040" \
+sample_cnyes_link        = "https://news.cnyes.com/news/id/4520040" \
                            "https://m.cnyes.com/news/id/4537458"
 sample_ebc_link          = "https://fnc.ebc.net.tw/FncNews/stock/127025" \
                            "https://fnc.ebc.net.tw/fncnews/else/135466"
