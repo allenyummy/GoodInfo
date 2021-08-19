@@ -4,10 +4,10 @@
 
 import logging
 from typing import List, Union
-from GoogleNews import GoogleNews
 
 from src.config import MEDIA_URL
 from src.utils.struct import GoogleNewsStruct
+from src.crawler.googlenews import GoogleNews
 
 logger = logging.getLogger(__name__)
 
