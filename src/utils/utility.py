@@ -25,8 +25,7 @@ def transform_goodinfo_json_to_query_txt(infile: str, outfile: str):
 
     with open(outfile, "w", encoding="utf-8") as f:
 
-        for _, v in goodinfo.items():
-            line = f"{v['股票名稱']} {v['股票代號']}\n"
+        for g in goodinfo:
+            line = f"{g['股票名稱']} {g['股票代號']}\n"
             f.write(line)
-
-    f.close()
+        f.close()
