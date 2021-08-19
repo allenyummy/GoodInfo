@@ -26,5 +26,14 @@ class TVBSNewsCrawler(BaseMediaNewsCrawler):
     ) -> str:
 
         content = soup.find("div", itemprop="articleBody").text
+
+        # Ad changes over time in the same page.
+        # It'll cause error during tests.
+        # So I have to remove it from content
+        ad = soup.find("div", class_="guangxuan").text
+        idx = content.find(ad)
+
+        content = content[:idx]
         logger.debug(f"CONTENT:\n {content}")
+
         return content
