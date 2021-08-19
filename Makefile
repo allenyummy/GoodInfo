@@ -155,7 +155,7 @@ ifeq ($(media), $(filter $(media), $(TARGET_MEDIA)))
 	python src/entry_media.py \
 		-m $(media) \
 		-l $(sample_$(media)_link) \
-		-o out/sample_$(media).json
+		-o out/media/sample/sample_$(media).json
 else
 	@echo "make run_sample media=$(media)"
 	@echo "   media only supports the following arguments:"
