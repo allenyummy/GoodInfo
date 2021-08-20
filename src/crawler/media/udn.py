@@ -41,6 +41,9 @@ class UDNNewsCrawler(BaseMediaNewsCrawler):
         soup: BeautifulSoup,
     ) -> str:
 
-        content = soup.find("section", class_="article-content__editor").text
+        content_list = soup.find("section", class_="article-content__editor").find_all(
+            "p"
+        )
+        content = "\n".join([c.text for c in content_list])
         logger.debug(f"CONTENT:\n {content}")
         return content
