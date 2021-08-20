@@ -25,6 +25,14 @@ class WorldJournalNewsCrawler(BaseMediaNewsCrawler):
         soup: BeautifulSoup,
     ) -> str:
 
-        content = soup.find("div", class_="article-content__paragraph").text
+        paragrah = soup.find("div", class_="article-content__paragraph")
+
+        content_list = list()
+        for content_cand in paragrah.find_all("p"):
+            if content_cand.text in ["上一則", "下一則"]:
+                continue
+            content_list.append(content_cand)
+
+        content = "\n".join([c.text for c in content_list])
         logger.debug(f"CONTENT:\n {content}")
         return content
