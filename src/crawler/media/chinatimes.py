@@ -25,6 +25,9 @@ class ChinatimesNewsCrawler(BaseMediaNewsCrawler):
         soup: BeautifulSoup,
     ) -> str:
 
-        content = soup.find(class_="article-body", itemprop="articleBody").text
+        content_list = soup.find(
+            class_="article-body", itemprop="articleBody"
+        ).find_all("p")
+        content = "\n".join([c.text for c in content_list])
         logger.debug(f"CONTENT:\n {content}")
         return content
