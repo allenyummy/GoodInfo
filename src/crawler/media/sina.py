@@ -25,6 +25,9 @@ class SINANewsCrawler(BaseMediaNewsCrawler):
         soup: BeautifulSoup,
     ) -> str:
 
-        content = soup.find("div", class_="pcont", itemprop="articleBody").text
+        content = soup.find("div", itemprop="articleBody").text
+        for script in soup.find("div", itemprop="articleBody").find_all("script"):
+            if script.text in content:
+                content = content.replace(script.text, "")
         logger.debug(f"CONTENT:\n {content}")
         return content
