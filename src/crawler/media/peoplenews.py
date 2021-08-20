@@ -36,6 +36,7 @@ class PeopleNewsNewsCrawler(BaseMediaNewsCrawler):
         soup: BeautifulSoup,
     ) -> str:
 
-        content = soup.find("div", itemprop="articleBody").text
+        content_list = soup.find("div", itemprop="articleBody").find_all("p")
+        content = "\n".join([c.text for c in content_list])
         logger.debug(f"CONTENT:\n {content}")
         return content
