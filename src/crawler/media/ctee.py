@@ -54,8 +54,9 @@ class CTEENewsCrawler(BaseMediaNewsCrawler):
         soup: BeautifulSoup,
     ) -> str:
 
-        content = soup.find(
+        content_list = soup.find(
             "div", class_="entry-content clearfix single-post-content"
-        ).text
+        ).find_all("p")
+        content = "\n".join([c.text for c in content_list])
         logger.debug(f"CONTENT:\n {content}")
         return content
