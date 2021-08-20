@@ -65,6 +65,9 @@ def newsCrawler():
         for t in TEST_DATA_LIST
     ],
 )
+@pytest.mark.skip(
+    reason="This media will block IP to not allow us to crawler their data, leading test error."
+)
 def test_get_info(
     newsCrawler,
     name,
