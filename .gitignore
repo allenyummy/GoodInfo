@@ -4,6 +4,8 @@
 .coverage
 __pycache__
 
+log/
+
 out/googlenews/
 out/media/a*
 out/media/b*
