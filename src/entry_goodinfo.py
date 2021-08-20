@@ -6,7 +6,6 @@ import argparse
 import logging
 import os
 import sys
-import time
 from tqdm import tqdm
 
 from src.utils.struct import GoodInfoStruct
@@ -56,6 +55,7 @@ def main():
 
     """ Get basic from goodinfo website """
     data = list()
+
     for i, c in enumerate(
         tqdm(
             cache,
@@ -89,7 +89,7 @@ def main():
 
             data.append(goodinfo)
 
-            if i > 0 and i % 10 == 0:
+            if i > 0 and i % 50 == 0:
                 logger.info(f"write file to {i}")
 
                 """ Write data """
@@ -101,7 +101,13 @@ def main():
                         outfile=args.output_file,
                     )
 
-                time.sleep(15)
+    """ Write data """
+    if args.output_file:
+        os.makedirs(os.path.dirname(args.output_file), exist_ok=True)
+        writeJson(
+            data=[d.__2dict__() for d in data],
+            outfile=args.output_file,
+        )
 
 
 if __name__ == "__main__":
