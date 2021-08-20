@@ -9,7 +9,6 @@ It's a web crawler to get information of listed companies, including their engli
 $ conda create --name GoodInfo-py38 python=3.8
 $ conda activate GoodInfo-py38
 $ git clone https://github.com/allenyummy/GoodInfo.git
-$ export PYTHONPATH=./
 ```
 
 ### Install basic dependencies
@@ -42,6 +41,13 @@ If wanna modify some codes, it's highly recommended to install both basic and de
 
 ## Run Code
 
+### Set uo
+Run below command to make sure there is "./" dir in PYTHONPATH.
+```
+$ export PYTHONPATH=./
+```
+After doing this, make sure working directory is `xxx/GoodInfo/`.
+
 ### Get company info
 
 + Get entire basic information
@@ -72,7 +78,7 @@ If wanna modify some codes, it's highly recommended to install both basic and de
 
     + Run with command line interface
         ```
-        python src/crawler/googlenews/gnews.py \
+        $ python src/crawler/googlenews/gnews.py \
             -iq $(input_query_file).txt \
             -o $(outfile).json \
             -c $(cachefile).json \
@@ -107,7 +113,7 @@ If wanna modify some codes, it's highly recommended to install both basic and de
 
     + Run with command line interface
         ```
-        python src/entry_media.py \
+        $ python src/entry_media.py \
             -m $(media) \
             -l $(link) \
             -o $(outfile).json \
@@ -188,5 +194,5 @@ If wanna modify some codes, it's highly recommended to install both basic and de
 
 + Test media crawler
     ```
-    make run_test_all
+    $ make run_test_all
     ```
