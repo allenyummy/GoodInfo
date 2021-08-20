@@ -41,6 +41,9 @@ class TheNewsLensNewsCrawler(BaseMediaNewsCrawler):
 
         whyneedknow = soup.find("header", class_="WhyNeedKnow").find("p").text
         content = soup.find("article", itemprop="articleBody").text
+        for script in soup.find("article", itemprop="articleBody").find_all("script"):
+            if script.text in content:
+                content = content.replace(script.text, "")
         content = whyneedknow + "\n" + content
         logger.debug(f"CONTENT:\n {content}")
         return content

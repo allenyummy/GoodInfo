@@ -25,6 +25,12 @@ class LTNNewsCrawler(BaseMediaNewsCrawler):
         soup: BeautifulSoup,
     ) -> str:
 
-        content = soup.find("div", class_="text").text
+        content_list = list()
+        for c in soup.find("div", class_="text").find_all("p"):
+            if c.has_attr("class"):
+                continue
+            content_list.append(c)
+
+        content = "\n".join([c.text for c in content_list])
         logger.debug(f"CONTENT:\n {content}\n")
         return content

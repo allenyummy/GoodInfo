@@ -48,4 +48,4 @@ jobs:
         run: flake8 .
 
       - name: Test crawler/media/* with pytest
-        run: PYTHONPATH=./ pytest tests/test_crawler_media --log-cli-level=warning --cov=./ --cov-report=term-missing
+        run: PYTHONPATH=./ pytest tests/ --log-cli-level=warning --cov=./ --cov-report=term-missing

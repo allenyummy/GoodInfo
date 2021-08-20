@@ -26,5 +26,8 @@ class UpMediaNewsCrawler(BaseMediaNewsCrawler):
     ) -> str:
 
         content = soup.find("div", class_="editor").text
+        for script in soup.find("div", class_="editor").find_all("script"):
+            if script.text in content:
+                content = content.replace(script.text, "")
         logger.debug(f"CONTENT:\n {content}")
         return content

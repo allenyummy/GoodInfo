@@ -33,6 +33,7 @@ help:
 	@echo "                          newtalk nownews pchome peoplenews"
 	@echo "                          pts rti setn taiwanhot taronews"
 	@echo "                          thenewslens tvbs upmedia ustv worldjournal"
+	@echo "                          wantrich"
 
 
 ####################################################
@@ -48,7 +49,8 @@ TARGET_MEDIA = yahoo ettoday ltn chinatimes udn \
                epochtimes era kairos mypeoplevol \
                newtalk nownews pchome peoplenews \
                pts rti setn taiwanhot taronews \
-               thenewslens tvbs upmedia ustv worldjournal
+               thenewslens tvbs upmedia ustv worldjournal \
+               wantrich
 
 
 ## SAMPLE LINK
@@ -59,8 +61,7 @@ sample_ettoday_link      = "https://www.ettoday.net/news/20210720/2035771.htm" \
 sample_ltn_link          = "https://news.ltn.com.tw/news/business/breakingnews/3604805" \
                            "https://ec.ltn.com.tw/article/breakingnews/3468538"
 sample_chinatimes_link   = "https://www.chinatimes.com/realtimenews/20210712002325-260410" \
-                           "https://www.chinatimes.com/realtimenews/20210428001632-260410" \
-                           "https://wantrich.chinatimes.com/news/20210804S426253"
+                           "https://www.chinatimes.com/realtimenews/20210428001632-260410"
 sample_udn_link          = "https://udn.com/news/story/7253/5550651" \
                            "https://udn.com/news/story/7254/5542521"
 sample_ttv_link          = "https://news.ttv.com.tw/news/11008170000600W" \
@@ -142,6 +143,8 @@ sample_ustv_link         = "https://news.ustv.com.tw/newsdetail/20210816A001044?
                            "https://news.ustv.com.tw/newsdetail/20210816A098?type=144&listOnly=true"
 sample_worldjournal_link = "https://www.worldjournal.com/wj/story/121347/5679553?from=wj_catelistnews" \
                            "https://www.worldjournal.com/wj/story/121218/5679359?from=wj_catebreaknews"
+sample_wantrich_link     = "https://wantrich.chinatimes.com/news/20210804S426253" \
+                           "https://wantrich.chinatimes.com/news/20210819S442332"
 
 ####################################################
 ###################### TASKs #######################
@@ -155,7 +158,7 @@ ifeq ($(media), $(filter $(media), $(TARGET_MEDIA)))
 	python src/entry_media.py \
 		-m $(media) \
 		-l $(sample_$(media)_link) \
-		-o out/sample_$(media).json
+		-o out/media/sample/sample_$(media).json
 else
 	@echo "make run_sample media=$(media)"
 	@echo "   media only supports the following arguments:"
@@ -171,7 +174,7 @@ run_sample_all:
 
 run_test:
 ifeq ($(media), $(filter $(media), $(TARGET_MEDIA)))
-	pytest tests/test_crawler_media/test_$(media).py \
+	pytest tests/crawler/media/test_$(media).py \
 		--log-cli-level=warning \
 		--cov=./ \
 		--cov-report term-missing

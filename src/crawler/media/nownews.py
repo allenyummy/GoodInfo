@@ -26,5 +26,8 @@ class NowNewsNewsCrawler(BaseMediaNewsCrawler):
     ) -> str:
 
         content = soup.find("article", itemprop="articleBody").text
+        related = soup.find("ul", class_="related").text
+        idx = content.find(related)
+        content = content[:idx]
         logger.debug(f"CONTENT:\n {content}")
         return content

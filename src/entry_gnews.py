@@ -8,6 +8,7 @@ from tqdm import tqdm
 import random
 import time
 import os
+import sys
 
 from src.utils.struct import GoogleNewsStruct
 from src.utils.utility import readJson, writeJson
@@ -98,7 +99,7 @@ def main():
 
     """ Get news from google """
     news_list = list()
-    write_every_n_companies = random.randint(20, 39)
+    write_every_n_companies = random.randint(30, 39)
 
     for i, query in enumerate(
         tqdm(
@@ -120,6 +121,10 @@ def main():
             logger.info(f"write all to {i}\n\n")
             write(args, cache, news_list)
 
+            if str(e) == "HTTP Error 429: Too Many Requests":
+                logger.info("Exit program !")
+                sys.exit()
+
         else:
 
             logger.info(f"got news {len(news)}!!")
@@ -135,7 +140,7 @@ def main():
         if i > 0 and i % write_every_n_companies == 0:
             logger.info(f"write file to {i}")
             write(args, cache, news_list)
-            write_every_n_companies = random.randint(20, 39)
+            write_every_n_companies = random.randint(30, 39)
             logger.info(f"reset write_every_{write_every_n_companies}_companies.")
             sleep()
 

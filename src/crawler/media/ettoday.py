@@ -25,6 +25,7 @@ class ETtodayNewsCrawler(BaseMediaNewsCrawler):
         soup: BeautifulSoup,
     ) -> str:
 
-        content = soup.find("div", class_="story").text
+        content_list = soup.find("div", class_="story").find_all("p")
+        content = "\n".join([c.text for c in content_list])
         logger.debug(f"CONTENT:\n {content}\n")
         return content

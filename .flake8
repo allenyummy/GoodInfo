@@ -8,7 +8,8 @@
 
 [flake8]
 ignore = E203, W503
-per-file-ignores = tests/test_crawler_media/*.py:E501
+per-file-ignores = 
+    tests/crawler/media/*.py:E501
 max-line-length = 100
 max-complexity = 18
 select = B,C,E,F,W,T4,B9

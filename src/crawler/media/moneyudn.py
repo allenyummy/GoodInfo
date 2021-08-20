@@ -54,6 +54,7 @@ class MoneyUDNNewsCrawler(BaseMediaNewsCrawler):
         soup: BeautifulSoup,
     ) -> str:
 
-        content = soup.find("div", id="article_body").text
-        return content
+        content_list = soup.find("div", id="article_body").find_all("p")
+        content = "\n".join([c.text for c in content_list])
+        logger.debug(f"CONTENT:\n {content}")
         return content

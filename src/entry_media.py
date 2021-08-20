@@ -6,12 +6,12 @@ import argparse
 import logging
 import os
 
-from src.crawler.media_news_crawler_factory import MediaNewsCrawlerFactory
+from src.crawler.media.factory import MediaNewsCrawlerFactory
 from src.utils.struct import NewsStruct
 from src.utils.utility import readJson, writeJson
 
 logging.basicConfig(
-    level=logging.DEBUG,
+    level=logging.WARNING,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     datefmt="%Y-%m-%d %H:%M",
 )
@@ -56,9 +56,10 @@ def main():
 
     """Args"""
     args = parse_args()
-    logger.info(f"ARGS: {args}\n")
+    logger.debug(f"ARGS: {args}\n")
 
     """ Get news from cache """
+    cache = None
     if args.cache_file:
         cache = readJson(infile=args.cache_file)
         cache = [NewsStruct(**c) for c in cache]
@@ -71,17 +72,27 @@ def main():
     for link in args.link:
         logger.info("==== CRAWLING ====")
         logger.info(f"link: {link}")
+
+        """ JUST PASS IF ALREADY EXISTS """
+        if cache and any(link == c.link for c in cache):
+            logger.info("This Link exists in cache file.")
+            logger.info("PASS\n\n")
+            continue
+
         try:
             news = nc.getInfo(link=link)
+
         except Exception as e:
-            logger.error(f"Error message: {e}\n")
+            logger.error(f"{link} -> Error message: {e}\n")
+
         else:
             logger.info("got news !!")
             news_list.append(news)
-        logger.info("==== FINISH ====\n\n")
+
+        logger.info("==== FINISHED ====\n\n")
 
     """ Merge cache and latest news """
-    data = cache + news_list if args.cache_file else news_list
+    data = cache + news_list if cache else news_list
 
     """ Write data """
     if args.output_file:
