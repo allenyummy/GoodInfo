@@ -46,6 +46,7 @@ class TaiwanHotNewsCrawler(BaseMediaNewsCrawler):
         soup: BeautifulSoup,
     ) -> str:
 
-        content = soup.find("article").text
+        content_list = soup.find("article").find_all("p")
+        content = "\n".join([c.text for c in content_list])
         logger.debug(f"CONTENT:\n {content}")
         return content
