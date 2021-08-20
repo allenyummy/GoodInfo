@@ -171,7 +171,7 @@ run_sample_all:
 
 run_test:
 ifeq ($(media), $(filter $(media), $(TARGET_MEDIA)))
-	pytest tests/test_crawler_media/test_$(media).py \
+	pytest tests/crawler/media/test_$(media).py \
 		--log-cli-level=warning \
 		--cov=./ \
 		--cov-report term-missing
